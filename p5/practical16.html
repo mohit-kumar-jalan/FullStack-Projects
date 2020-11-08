@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Practical-16</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-image: linear-gradient(to right,#e05297,#52057b);
+            color: white;
+            min-height: 100vh;
+        }
+        form,h1{
+            height: 20vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h1{
+            font-size: 40px;
+        }
+       form input,form button{
+           padding: 10px;
+           border: none;
+           font-size: 24px;
+           background: white;
+           outline: none;
+       } 
+       form button{
+           color: blue;
+           background-color: white;
+           cursor: pointer;
+       }
+       form button:hover{
+           color: white;
+           background-color: skyblue;
+       }
+       .todo-container{
+           display: flex;
+           justify-content: center;
+           align-items: center;
+       }
+       .todo-list{
+           width: 25%;
+           list-style-type: none;
+       }
+       .todo{
+           margin: 8px;
+           background-color: white;
+           color: black;
+           font-size: 24px;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+       }
+       .todo-item{
+           flex: 1;
+           margin: 0 8px;
+       }
+       .plus-btn,.del-btn{
+           background-color: green;
+           color: white;
+           padding: 16px;
+           font-size: 16px;
+           border: none;
+           outline: none;
+           cursor: pointer;
+       }
+       .del-btn{
+           background-color: red;
+       }
+      .fa-check,.fa-trash{
+          pointer-events: none;
+      }
+      .completed{
+          text-decoration: line-through;
+          opacity: 0.5;
+      }
+      
+    </style>
+</head>
+<body>
+    <h1 id="heading">FullStack To-Do List</h1>
+    <form >
+        <input type="text" class="todo-input" />
+        <button class="todo-button">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>
+        </button>
+    </form>
+    <div class="todo-container">
+    <ul class="todo-list">
+
+    </ul>
+</div>
+</body>
+<script>
+    
+    
+    var todoinput=document.querySelector(".todo-input");
+    var todobutton=document.querySelector(".todo-button");
+    var todolist=document.querySelector(".todo-list");
+
+    
+    todobutton.onclick=create;
+    todolist.onclick=checkdelete;
+
+    function create(e)
+    {
+        e.preventDefault();
+        if(todoinput.value==="")
+        {
+            alert("Input field cannot be empty!");
+        
+        }
+        else if(todoinput.value!="")
+        {
+        var newdiv=document.createElement("div");
+        newdiv.classList.add("todo");
+
+        var newli=document.createElement("li");
+        newli.classList.add("todo-item");
+        newli.innerHTML=todoinput.value;
+        newdiv.appendChild(newli);
+
+        var newbtn=document.createElement("button");
+        newbtn.classList.add("plus-btn");
+        newbtn.innerHTML='<i class="fa fa-check"></i>';
+        newdiv.appendChild(newbtn);
+
+        var delbtn=document.createElement("button");
+        delbtn.classList.add("del-btn");
+        delbtn.innerHTML='<i class="fa fa-trash"></i>';
+        newdiv.appendChild(delbtn);
+
+        todolist.appendChild(newdiv);
+        todoinput.value="";
+    }
+    }
+    function checkdelete(e){
+        var item =e.target;
+        if(item.classList[0]==="del-btn")
+        {
+            var parent=item.parentNode;
+            parent.remove();
+        }
+        if(item.classList[0]==="plus-btn")
+        {
+            var parent=item.parentNode;
+           parent.classList.toggle("completed");
+        }
+    }
+
+</script>
+</html>
